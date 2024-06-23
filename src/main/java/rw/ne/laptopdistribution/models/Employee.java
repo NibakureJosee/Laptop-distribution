@@ -1,13 +1,13 @@
-package rw.pacis.ne.equipment_distribution_system.models;
+package rw.ne.laptopdistribution.models;
 
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rw.pacis.ne.equipment_distribution_system.audits.InitiatorAudit;
-import rw.pacis.ne.equipment_distribution_system.dtos.CreateOrUpdateEmployeeDTO;
+import rw.ne.laptopdistribution.audits.InitiatorAudit;
+import rw.ne.laptopdistribution.dtos.CreateOrUpdateEmployeeDTO;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Getter

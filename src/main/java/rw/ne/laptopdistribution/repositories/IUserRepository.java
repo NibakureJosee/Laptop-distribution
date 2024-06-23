@@ -1,8 +1,8 @@
-package rw.pacis.ne.equipment_distribution_system.repositories;
+package rw.ne.laptopdistribution.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import rw.pacis.ne.equipment_distribution_system.models.User;
+import rw.ne.laptopdistribution.models.User;
 
 import java.util.Optional;
 import java.util.UUID;

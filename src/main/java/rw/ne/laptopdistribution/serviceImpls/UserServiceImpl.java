@@ -1,14 +1,15 @@
-package rw.pacis.ne.equipment_distribution_system.serviceImpls;
+package rw.ne.laptopdistribution.serviceImpls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import rw.pacis.ne.equipment_distribution_system.exceptions.BadRequestException;
-import rw.pacis.ne.equipment_distribution_system.exceptions.ResourceNotFoundException;
-import rw.pacis.ne.equipment_distribution_system.models.User;
-import rw.pacis.ne.equipment_distribution_system.repositories.IUserRepository;
-import rw.pacis.ne.equipment_distribution_system.services.IUserService;
+import rw.ne.laptopdistribution.exceptions.BadRequestException;
+import rw.ne.laptopdistribution.exceptions.ResourceNotFoundException;
+import rw.ne.laptopdistribution.models.User;
+import rw.ne.laptopdistribution.repositories.IUserRepository;
+import rw.ne.laptopdistribution.services.IUserService;
+
 
 import java.util.*;
 

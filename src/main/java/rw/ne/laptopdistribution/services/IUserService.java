@@ -1,7 +1,7 @@
-package rw.pacis.ne.equipment_distribution_system.services;
+package rw.ne.laptopdistribution.services;
 
-import rw.pacis.ne.equipment_distribution_system.models.User;
 
+import rw.ne.laptopdistribution.models.User;
 
 public interface IUserService {
 

@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.utils;
+package rw.ne.laptopdistribution.utils;
 
 public interface Constants {
 

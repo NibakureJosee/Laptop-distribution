@@ -1,7 +1,9 @@
-package rw.pacis.ne.equipment_distribution_system.security;
+package rw.ne.laptopdistribution.security;
+
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

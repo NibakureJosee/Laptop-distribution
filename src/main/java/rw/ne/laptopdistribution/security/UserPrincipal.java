@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.security;
+package rw.ne.laptopdistribution.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,10 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import rw.pacis.ne.equipment_distribution_system.enums.EGender;
-import rw.pacis.ne.equipment_distribution_system.enums.ERole;
-import rw.pacis.ne.equipment_distribution_system.models.User;
+import rw.ne.laptopdistribution.enums.EGender;
+import rw.ne.laptopdistribution.enums.ERole;
+import rw.ne.laptopdistribution.models.User;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

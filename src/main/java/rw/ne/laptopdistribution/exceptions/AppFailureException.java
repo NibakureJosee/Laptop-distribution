@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.exceptions;
+package rw.ne.laptopdistribution.exceptions;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -8,7 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import rw.pacis.ne.equipment_distribution_system.payload.ErrorResponse;
+import rw.ne.laptopdistribution.payload.ErrorResponse;
 
 import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;

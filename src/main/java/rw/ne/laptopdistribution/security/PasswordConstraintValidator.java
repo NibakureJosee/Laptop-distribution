@@ -1,11 +1,11 @@
-package rw.pacis.ne.equipment_distribution_system.security;
+package rw.ne.laptopdistribution.security;
 
 
 import com.google.common.base.Joiner;
-import org.passay.*;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import org.passay.*;
+
 import java.util.Arrays;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword,String> {

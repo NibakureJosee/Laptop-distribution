@@ -1,14 +1,15 @@
-package rw.pacis.ne.equipment_distribution_system.serviceImpls;
+package rw.ne.laptopdistribution.serviceImpls;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import rw.pacis.ne.equipment_distribution_system.dtos.CreateOrUpdateEmployeeDTO;
-import rw.pacis.ne.equipment_distribution_system.exceptions.BadRequestException;
-import rw.pacis.ne.equipment_distribution_system.exceptions.ResourceNotFoundException;
-import rw.pacis.ne.equipment_distribution_system.models.Employee;
-import rw.pacis.ne.equipment_distribution_system.repositories.IEmployeeRepository;
-import rw.pacis.ne.equipment_distribution_system.services.IEmployeeService;
+import rw.ne.laptopdistribution.dtos.CreateOrUpdateEmployeeDTO;
+import rw.ne.laptopdistribution.exceptions.BadRequestException;
+import rw.ne.laptopdistribution.exceptions.ResourceNotFoundException;
+import rw.ne.laptopdistribution.models.Employee;
+import rw.ne.laptopdistribution.repositories.IEmployeeRepository;
+import rw.ne.laptopdistribution.services.IEmployeeService;
+
 
 import java.util.List;
 import java.util.Optional;

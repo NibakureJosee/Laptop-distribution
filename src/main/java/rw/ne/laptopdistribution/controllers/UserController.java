@@ -1,18 +1,18 @@
-package rw.pacis.ne.equipment_distribution_system.controllers;
+package rw.ne.laptopdistribution.controllers;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import rw.pacis.ne.equipment_distribution_system.dtos.SignUpDTO;
-import rw.pacis.ne.equipment_distribution_system.enums.ERole;
-import rw.pacis.ne.equipment_distribution_system.models.User;
-import rw.pacis.ne.equipment_distribution_system.payload.ApiResponse;
-import rw.pacis.ne.equipment_distribution_system.services.IUserService;
+import rw.ne.laptopdistribution.dtos.SignUpDTO;
+import rw.ne.laptopdistribution.enums.ERole;
+import rw.ne.laptopdistribution.models.User;
+import rw.ne.laptopdistribution.payload.ApiResponse;
+import rw.ne.laptopdistribution.services.IUserService;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/v1/users")

@@ -1,9 +1,10 @@
-package rw.pacis.ne.equipment_distribution_system.services;
+package rw.ne.laptopdistribution.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import rw.pacis.ne.equipment_distribution_system.dtos.NewEmployeeLaptopDTO;
-import rw.pacis.ne.equipment_distribution_system.models.EmployeeLaptop;
+import rw.ne.laptopdistribution.dtos.NewEmployeeLaptopDTO;
+import rw.ne.laptopdistribution.models.EmployeeLaptop;
+
 
 public interface IEmployeeLaptopService {
 

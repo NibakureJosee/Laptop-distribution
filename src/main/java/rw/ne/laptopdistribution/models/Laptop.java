@@ -1,9 +1,9 @@
-package rw.pacis.ne.equipment_distribution_system.models;
-
-import lombok.*;
-import rw.pacis.ne.equipment_distribution_system.audits.InitiatorAudit;
+package rw.ne.laptopdistribution.models;
 
 import javax.persistence.*;
+import lombok.*;
+import rw.ne.laptopdistribution.audits.InitiatorAudit;
+
 import java.util.UUID;
 
 @Getter

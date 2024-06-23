@@ -1,8 +1,7 @@
-package rw.pacis.ne.equipment_distribution_system.dtos;
-
+package rw.ne.laptopdistribution.dtos;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data

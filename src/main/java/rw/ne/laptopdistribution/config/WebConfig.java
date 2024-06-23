@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.config;
+package rw.ne.laptopdistribution.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

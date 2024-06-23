@@ -1,9 +1,8 @@
-package rw.pacis.ne.equipment_distribution_system.dtos;
-
-
-import lombok.Data;
+package rw.ne.laptopdistribution.dtos;
 
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
+
 
 @Data
 public class SignInDTO {

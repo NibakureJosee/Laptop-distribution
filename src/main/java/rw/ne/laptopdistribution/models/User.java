@@ -1,17 +1,17 @@
-package rw.pacis.ne.equipment_distribution_system.models;
+package rw.ne.laptopdistribution.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import rw.pacis.ne.equipment_distribution_system.enums.EGender;
-import rw.pacis.ne.equipment_distribution_system.enums.ERole;
+import rw.ne.laptopdistribution.enums.EGender;
+import rw.ne.laptopdistribution.enums.ERole;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 

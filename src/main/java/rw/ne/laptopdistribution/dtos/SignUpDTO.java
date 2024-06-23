@@ -1,16 +1,15 @@
-package rw.pacis.ne.equipment_distribution_system.dtos;
-
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import rw.pacis.ne.equipment_distribution_system.enums.EGender;
-import rw.pacis.ne.equipment_distribution_system.security.ValidPassword;
+package rw.ne.laptopdistribution.dtos;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import rw.ne.laptopdistribution.enums.EGender;
+import rw.ne.laptopdistribution.security.ValidPassword;
+
 
 @Getter
 @Data

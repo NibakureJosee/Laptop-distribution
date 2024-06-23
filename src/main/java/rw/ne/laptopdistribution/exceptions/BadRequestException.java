@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.exceptions;
+package rw.ne.laptopdistribution.exceptions;
 
 
 import org.springframework.http.HttpStatus;

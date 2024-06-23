@@ -1,15 +1,15 @@
-package rw.pacis.ne.equipment_distribution_system.security;
+package rw.ne.laptopdistribution.security;
 
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import rw.pacis.ne.equipment_distribution_system.exceptions.BadRequestException;
-import rw.pacis.ne.equipment_distribution_system.models.User;
-import rw.pacis.ne.equipment_distribution_system.repositories.IUserRepository;
+import rw.ne.laptopdistribution.exceptions.BadRequestException;
+import rw.ne.laptopdistribution.models.User;
+import rw.ne.laptopdistribution.repositories.IUserRepository;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service

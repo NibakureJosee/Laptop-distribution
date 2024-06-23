@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.security;
+package rw.ne.laptopdistribution.security;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -8,8 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import rw.pacis.ne.equipment_distribution_system.models.User;
-import rw.pacis.ne.equipment_distribution_system.utils.Mapper;
+import rw.ne.laptopdistribution.models.User;
+import rw.ne.laptopdistribution.utils.Mapper;
+
 
 import java.util.Date;
 import java.util.HashSet;

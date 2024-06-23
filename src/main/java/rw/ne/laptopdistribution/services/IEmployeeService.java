@@ -1,9 +1,10 @@
-package rw.pacis.ne.equipment_distribution_system.services;
+package rw.ne.laptopdistribution.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import rw.pacis.ne.equipment_distribution_system.dtos.CreateOrUpdateEmployeeDTO;
-import rw.pacis.ne.equipment_distribution_system.models.Employee;
+import rw.ne.laptopdistribution.dtos.CreateOrUpdateEmployeeDTO;
+import rw.ne.laptopdistribution.models.Employee;
+
 
 import java.util.List;
 import java.util.UUID;

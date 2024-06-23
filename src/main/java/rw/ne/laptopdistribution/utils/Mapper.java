@@ -1,7 +1,7 @@
-package rw.pacis.ne.equipment_distribution_system.utils;
+package rw.ne.laptopdistribution.utils;
 
 import org.modelmapper.ModelMapper;
-import rw.pacis.ne.equipment_distribution_system.models.User;
+import rw.ne.laptopdistribution.models.User;
 
 public class Mapper {
 

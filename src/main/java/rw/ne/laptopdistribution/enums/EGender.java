@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.enums;
+package rw.ne.laptopdistribution.enums;
 
 public enum EGender {
     MALE, FEMALE, OTHERS

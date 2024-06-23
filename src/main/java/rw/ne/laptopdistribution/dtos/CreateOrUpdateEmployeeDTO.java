@@ -1,10 +1,11 @@
-package rw.pacis.ne.equipment_distribution_system.dtos;
-
-import lombok.Data;
+package rw.ne.laptopdistribution.dtos;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import lombok.Data;
+
+
 
 @Data
 public class CreateOrUpdateEmployeeDTO {

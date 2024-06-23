@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.payload;
+package rw.ne.laptopdistribution.payload;
 
 import lombok.Data;
 

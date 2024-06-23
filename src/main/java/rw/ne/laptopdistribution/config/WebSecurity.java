@@ -1,4 +1,4 @@
-package rw.pacis.ne.equipment_distribution_system.config;
+package rw.ne.laptopdistribution.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import rw.pacis.ne.equipment_distribution_system.security.CustomUserDetailsService;
-import rw.pacis.ne.equipment_distribution_system.security.JwtAuthenticationEntryPoint;
-import rw.pacis.ne.equipment_distribution_system.security.JwtAuthenticationFilter;
+import rw.ne.laptopdistribution.security.CustomUserDetailsService;
+import rw.ne.laptopdistribution.security.JwtAuthenticationEntryPoint;
+import rw.ne.laptopdistribution.security.JwtAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity

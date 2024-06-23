@@ -1,18 +1,17 @@
-package rw.pacis.ne.equipment_distribution_system.controllers;
+package rw.ne.laptopdistribution.controllers;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rw.pacis.ne.equipment_distribution_system.dtos.CreateOrUpdateLaptopDTO;
-import rw.pacis.ne.equipment_distribution_system.payload.ApiResponse;
-import rw.pacis.ne.equipment_distribution_system.services.ILaptopService;
-import rw.pacis.ne.equipment_distribution_system.utils.Constants;
+import rw.ne.laptopdistribution.dtos.CreateOrUpdateLaptopDTO;
+import rw.ne.laptopdistribution.payload.ApiResponse;
+import rw.ne.laptopdistribution.services.ILaptopService;
+import rw.ne.laptopdistribution.utils.Constants;
 
-import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/laptops")

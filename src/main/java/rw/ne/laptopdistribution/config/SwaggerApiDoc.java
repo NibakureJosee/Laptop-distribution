@@ -1,12 +1,12 @@
-package rw.pacis.ne.equipment_distribution_system.config;
+package rw.ne.laptopdistribution.config;
 
+import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -21,7 +21,6 @@ import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.servlet.ServletContext;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,8 +30,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 @EnableWebMvc
-public class SwaggerApiDoc extends WebMvcConfigurationSupport {
-
+public class SwaggerApiDoc implements WebMvcConfigurer {
 
     private final ServletContext servletContext;
 
@@ -56,38 +54,29 @@ public class SwaggerApiDoc extends WebMvcConfigurationSupport {
     @Value("${swagger.base_controller_path}")
     private String baseControllerPath;
 
-
     @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(swaggerEndpoint).addResourceLocations("classpath:/META-INF/resources/");
-
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Bean
-    public WebMvcConfigurer webMvcConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler(swaggerEndpoint).addResourceLocations("classpath:/META-INF/resources/");
-                registry.addResourceHandler("/webjars/**")
-                        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-            }
-        };
-    }
-
-
-    @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).directModelSubstitute(LocalDate.class, Date.class)
+        return new Docket(DocumentationType.SWAGGER_2)
+                .directModelSubstitute(LocalDate.class, Date.class)
                 .host(host)
                 .pathProvider(new RelativePathProvider(servletContext) {
                     @Override
                     public String getApplicationBasePath() {
                         return "";
                     }
-                }).select().apis(RequestHandlerSelectors.basePackage(baseControllerPath))
-                .paths(PathSelectors.any()).build().apiInfo(apiInfo()).securitySchemes(Arrays.asList(apiKey()))
+                })
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(baseControllerPath))
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiInfo())
+                .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()));
     }
 
@@ -96,7 +85,10 @@ public class SwaggerApiDoc extends WebMvcConfigurationSupport {
     }
 
     private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.regex("/.*")).build();
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("/.*"))
+                .build();
     }
 
     private List<SecurityReference> defaultAuth() {
@@ -106,7 +98,10 @@ public class SwaggerApiDoc extends WebMvcConfigurationSupport {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title(appName).description(appDescription)
-                .version("1.0").build();
+        return new ApiInfoBuilder()
+                .title(appName)
+                .description(appDescription)
+                .version("1.0")
+                .build();
     }
 }
