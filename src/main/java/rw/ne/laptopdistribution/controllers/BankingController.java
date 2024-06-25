@@ -3,6 +3,7 @@ package rw.ne.laptopdistribution.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import rw.ne.laptopdistribution.dtos.BankingDTO;
 import rw.ne.laptopdistribution.models.Banking;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/bankings")
+@RequestMapping("/api/banking")
 public class BankingController {
 
     private final BankingService bankingService;
@@ -22,22 +23,22 @@ public class BankingController {
         this.bankingService = bankingService;
     }
 
-    @PostMapping
-    public ResponseEntity<Banking> createBankingTransaction(@RequestBody BankingDTO bankingDTO) {
-        Banking createdBanking = bankingService.createBankingTransaction(bankingDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdBanking);
+    @PostMapping("/transaction")
+    public ResponseEntity<Banking> createBankingTransaction(@Validated @RequestBody BankingDTO bankingDTO) {
+        Banking banking = bankingService.createBankingTransaction(bankingDTO);
+        return new ResponseEntity<>(banking, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Banking>> getAllBankingTransactions() {
-        List<Banking> bankings = bankingService.getAllBankingTransactions();
-        return ResponseEntity.ok(bankings);
+        List<Banking> bankingTransactions = bankingService.getAllBankingTransactions();
+        return ResponseEntity.ok(bankingTransactions);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Banking> getBankingTransactionById(@PathVariable Long id) {
-        Optional<Banking> bankingOptional = bankingService.getBankingTransactionById(id);
-        return bankingOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Banking> bankingTransaction = bankingService.getBankingTransactionById(id);
+        return bankingTransaction.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

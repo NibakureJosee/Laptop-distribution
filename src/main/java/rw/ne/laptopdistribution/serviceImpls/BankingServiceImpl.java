@@ -7,6 +7,7 @@ import rw.ne.laptopdistribution.exceptions.BadRequestException;
 import rw.ne.laptopdistribution.models.Banking;
 import rw.ne.laptopdistribution.models.Customer;
 import rw.ne.laptopdistribution.repositories.BankingRepository;
+import rw.ne.laptopdistribution.repositories.CustomerRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,89 +17,59 @@ import java.util.Optional;
 public class BankingServiceImpl implements BankingService {
 
     private final BankingRepository bankingRepository;
+    private final CustomerRepository customerRepository;
     private final EmailService emailService;
-    private final CustomerService customerService;
 
     @Autowired
-    public BankingServiceImpl(BankingRepository bankingRepository, EmailService emailService, CustomerService customerService) {
+    public BankingServiceImpl(BankingRepository bankingRepository, CustomerRepository customerRepository, EmailService emailService) {
         this.bankingRepository = bankingRepository;
+        this.customerRepository = customerRepository;
         this.emailService = emailService;
-        this.customerService = customerService;
     }
 
     @Override
     public Banking createBankingTransaction(BankingDTO bankingDTO) {
-        Customer customer = customerService.getCustomerById(bankingDTO.getCustomer().getId());
+        validateBankingDTO(bankingDTO);
 
-        if (bankingDTO.getType().equalsIgnoreCase("saving")) {
-            // Saving transaction
-            Banking banking = new Banking();
-            banking.setCustomer(customer);
-            banking.setAccount(bankingDTO.getAccount());
-            banking.setAmount(bankingDTO.getAmount());
-            banking.setType("saving");
-            banking.setBankingDateTime(LocalDateTime.now());
+        Customer customer = customerRepository.findById(bankingDTO.getCustomer().getId())
+                .orElseThrow(() -> new BadRequestException("Customer not found"));
 
-            // Update customer balance
-            customerService.updateCustomerBalance(customer.getId(), bankingDTO.getAmount());
+        Banking banking = new Banking();
+        banking.setCustomer(customer);
+        banking.setAccount(bankingDTO.getAccount());
+        banking.setAmount(bankingDTO.getAmount());
+        banking.setType(bankingDTO.getType());
+        banking.setBankingDateTime(LocalDateTime.now());
 
-            // Send email notification
-            sendTransactionEmail(customer, bankingDTO.getAmount(), bankingDTO.getAccount(), "saving");
-
-            return bankingRepository.save(banking);
-        } else if (bankingDTO.getType().equalsIgnoreCase("withdraw")) {
-            // Withdraw transaction
-            Banking banking = new Banking();
-            banking.setCustomer(customer);
-            banking.setAccount(bankingDTO.getAccount());
-            banking.setAmount(bankingDTO.getAmount());
-            banking.setType("withdraw");
-            banking.setBankingDateTime(LocalDateTime.now());
-
-            // Check if customer has sufficient balance
+        if ("saving".equalsIgnoreCase(bankingDTO.getType())) {
+            customer.setBalance(customer.getBalance() + bankingDTO.getAmount());
+            sendEmailNotification(customer, "saving", bankingDTO.getAmount(), bankingDTO.getAccount());
+        } else if ("withdraw".equalsIgnoreCase(bankingDTO.getType())) {
             if (customer.getBalance() < bankingDTO.getAmount()) {
                 throw new BadRequestException("Insufficient balance for withdrawal");
             }
+            customer.setBalance(customer.getBalance() - bankingDTO.getAmount());
+            sendEmailNotification(customer, "withdraw", bankingDTO.getAmount(), bankingDTO.getAccount());
+        } else if ("transfer".equalsIgnoreCase(bankingDTO.getType())) {
+            Customer recipient = customerRepository.findByAccount(bankingDTO.getRecipientAccount())
+                    .orElseThrow(() -> new BadRequestException("Recipient not found"));
 
-            // Update customer balance
-            customerService.updateCustomerBalance(customer.getId(), -bankingDTO.getAmount());
+            customer.setBalance(customer.getBalance() - bankingDTO.getAmount());
+            recipient.setBalance(recipient.getBalance() + bankingDTO.getAmount());
 
-            // Send email notification
-            sendTransactionEmail(customer, bankingDTO.getAmount(), bankingDTO.getAccount(), "withdraw");
-
-            return bankingRepository.save(banking);
-        } else if (bankingDTO.getType().equalsIgnoreCase("transfer")) {
-            // Transfer transaction
-            Customer recipient = customerService.getCustomerById(bankingDTO.getRecipientId());
-
-            if (customer.getId().equals(recipient.getId())) {
-                throw new BadRequestException("Cannot transfer to the same account");
-            }
-
-            Banking banking = new Banking();
-            banking.setCustomer(customer);
-            banking.setAccount(bankingDTO.getAccount());
-            banking.setAmount(bankingDTO.getAmount());
-            banking.setType("transfer");
-            banking.setBankingDateTime(LocalDateTime.now());
-
-            // Check if customer has sufficient balance
-            if (customer.getBalance() < bankingDTO.getAmount()) {
-                throw new BadRequestException("Insufficient balance for transfer");
-            }
-
-            // Update customer balances
-            customerService.updateCustomerBalance(customer.getId(), -bankingDTO.getAmount());
-            customerService.updateCustomerBalance(recipient.getId(), bankingDTO.getAmount());
-
-            // Send email notifications
-            sendTransactionEmail(customer, bankingDTO.getAmount(), bankingDTO.getAccount(), "transfer");
-            sendTransactionEmail(recipient, bankingDTO.getAmount(), bankingDTO.getAccount(), "transfer_received");
-
-            return bankingRepository.save(banking);
-        } else {
-            throw new BadRequestException("Invalid transaction type");
+            sendEmailNotification(customer, "transfer", bankingDTO.getAmount(), bankingDTO.getAccount());
+            sendEmailNotification(recipient, "received transfer", bankingDTO.getAmount(), bankingDTO.getRecipientAccount());
         }
+
+        customerRepository.save(customer);
+        return bankingRepository.save(banking);
+    }
+
+    private void validateBankingDTO(BankingDTO bankingDTO) {
+        if (bankingDTO.getAmount() <= 0) {
+            throw new BadRequestException("Amount must be greater than zero");
+        }
+        // Add more validations as needed
     }
 
     @Override
@@ -116,9 +87,11 @@ public class BankingServiceImpl implements BankingService {
         bankingRepository.deleteById(id);
     }
 
-    private void sendTransactionEmail(Customer customer, double amount, String account, String transactionType) {
-        String message = String.format("Dear %s %s, your %s of %.2f on your account %s has been completed successfully.",
+    private void sendEmailNotification(Customer customer, String transactionType, Double amount, String account) {
+        String emailSubject = "Transaction Notification";
+        String emailBody = String.format("Dear %s %s,\nYour %s of %.2f on your account %s has been completed successfully.",
                 customer.getFirstname(), customer.getLastname(), transactionType, amount, account);
-        emailService.sendEmail(customer.getEmail(), "Transaction Notification", message);
+
+        emailService.sendEmail(customer.getEmail(), emailSubject, emailBody);
     }
 }

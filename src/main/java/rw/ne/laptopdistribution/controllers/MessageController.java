@@ -9,7 +9,6 @@ import rw.ne.laptopdistribution.dtos.MessageDTO;
 import rw.ne.laptopdistribution.models.Message;
 import rw.ne.laptopdistribution.services.MessageService;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,23 +23,22 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @PostMapping("")
-    public ResponseEntity<Message> createMessage(@Valid @RequestBody MessageDTO messageDTO) {
-        Message createdMessage = messageService.createMessage(messageDTO);
-        return new ResponseEntity<>(createdMessage, HttpStatus.CREATED);
+    @PostMapping("/send")
+    public ResponseEntity<Message> sendMessage(@Validated @RequestBody MessageDTO messageDTO) {
+        Message message = messageService.createMessage(messageDTO);
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<Message>> getAllMessages() {
         List<Message> messages = messageService.getAllMessages();
-        return new ResponseEntity<>(messages, HttpStatus.OK);
+        return ResponseEntity.ok(messages);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Message> getMessageById(@PathVariable Long id) {
         Optional<Message> message = messageService.getMessageById(id);
-        return message.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return message.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
