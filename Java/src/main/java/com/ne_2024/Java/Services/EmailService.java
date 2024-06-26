@@ -1,21 +1,31 @@
 package com.ne_2024.Java.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-@Service
-public class EmailService {
+import java.util.Properties;
 
-    @Autowired
-    private JavaMailSender mailSender;
+@Configuration
+public class MailConfig {
 
-    public void sendEmail(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
+    @Bean
+    public JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.example.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("rcaclassof2024@gmail.com");
+        mailSender.setPassword("dmyb kuma ptwc osht");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
     }
 }
+
