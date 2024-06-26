@@ -22,7 +22,12 @@ public class CustomerController {
 
     @PostMapping("/{customerId}/save")
     public Banking saveMoney(@PathVariable Long customerId, @RequestParam double amount) {
-        return customerService.saveMoney(customerId, amount);
+        try{
+            return customerService.saveMoney(customerId, amount);
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     @PostMapping("/{customerId}/withdraw")

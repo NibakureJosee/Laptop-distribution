@@ -36,34 +36,41 @@ public class CustomerService {
 
     @Transactional
     public Banking saveMoney(Long customerId, double amount) {
-        Optional<Customer> customerOptional = customerRepository.findById(customerId);
-        if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            customer.setBalance(customer.getBalance() + amount);
-            customer.setLastUpdateDateTime(LocalDateTime.now());
-            customerRepository.save(customer);
+        try{
+            Optional<Customer> customerOptional = customerRepository.findById(customerId);
+            if (customerOptional.isPresent()) {
+                Customer customer = customerOptional.get();
+                customer.setBalance(customer.getBalance() + amount);
+                customer.setLastUpdateDateTime(LocalDateTime.now());
+                customerRepository.save(customer);
 
-            Banking banking = new Banking();
-            banking.setCustomer(customer);
-            banking.setAccount(customer.getAccount());
-            banking.setAmount(amount);
-            banking.setType("saving");
-            banking.setBankingDateTime(LocalDateTime.now());
-            bankingRepository.save(banking);
+                Banking banking = new Banking();
+                banking.setCustomer(customer);
+                banking.setAccount(customer.getAccount());
+                banking.setAmount(amount);
+                banking.setType("saving");
+                banking.setBankingDateTime(LocalDateTime.now());
+                bankingRepository.save(banking);
 
-            String messageText = "Dear " + customer.getFirstName() + " " + customer.getLastName() +
-                    ", your saving of " + amount + " on your account " + customer.getAccount() + " has been completed successfully.";
-            emailService.sendEmail(customer.getEmail(), "Transaction Alert", messageText);
+                String messageText = "Dear " + customer.getFirstName() + " " + customer.getLastName() +
+                        ", your saving of " + amount + " on your account " + customer.getAccount() + " has been completed successfully.";
+                emailService.sendSimpleMessage(customer.getEmail(), "Transaction Alert", messageText);
 
-            Message message = new Message();
-            message.setCustomer(customer);
-            message.setMessage(messageText);
-            message.setDateTime(LocalDateTime.now());
-            messageRepository.save(message);
+                Message message = new Message();
+                message.setCustomer(customer);
+                message.setMessage(messageText);
+                message.setDateTime(LocalDateTime.now());
+                messageRepository.save(message);
 
-            return banking;
+                return banking;
+            }
+            throw new RuntimeException("Customer not found");
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Customer not found");
+
         }
-        throw new RuntimeException("Customer not found");
+
     }
 
     @Transactional
@@ -88,7 +95,7 @@ public class CustomerService {
 
             String messageText = "Dear " + customer.getFirstName() + " " + customer.getLastName() +
                     ", your withdraw of " + amount + " from your account " + customer.getAccount() + " has been completed successfully.";
-            emailService.sendEmail(customer.getEmail(), "Transaction Alert", messageText);
+            emailService.sendSimpleMessage(customer.getEmail(), "Transaction Alert", messageText);
 
             Message message = new Message();
             message.setCustomer(customer);
@@ -132,7 +139,7 @@ public class CustomerService {
 
             String messageText = "Dear " + fromCustomer.getFirstName() + " " + fromCustomer.getLastName() +
                     ", your transfer of " + amount + " to account " + toCustomer.getAccount() + " has been completed successfully.";
-            emailService.sendEmail(fromCustomer.getEmail(), "Transaction Alert", messageText);
+            emailService.sendSimpleMessage( fromCustomer.getEmail(), "Transaction Alert", messageText);
 
             Message message = new Message();
             message.setCustomer(fromCustomer);

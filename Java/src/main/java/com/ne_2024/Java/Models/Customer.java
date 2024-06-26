@@ -1,15 +1,17 @@
 package com.ne_2024.Java.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
@@ -29,10 +31,17 @@ public class Customer {
 
     @NotBlank
     @Size(min = 10, max = 10)
+    private String mobile;
+
+    @NotBlank
     private String account;
 
     private double balance;
     private LocalDateTime lastUpdateDateTime;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Banking> bankings;
 
     // Getters and Setters
 
@@ -76,6 +85,14 @@ public class Customer {
         this.dob = dob;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -98,5 +115,13 @@ public class Customer {
 
     public void setLastUpdateDateTime(LocalDateTime lastUpdateDateTime) {
         this.lastUpdateDateTime = lastUpdateDateTime;
+    }
+
+    public Set<Banking> getBankings() {
+        return bankings;
+    }
+
+    public void setBankings(Set<Banking> bankings) {
+        this.bankings = bankings;
     }
 }
