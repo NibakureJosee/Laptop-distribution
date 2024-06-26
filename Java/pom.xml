@@ -8,12 +8,12 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-    <properties>
-        <java.version>17</java.version>
-        <spring.boot.version>3.0.0</spring.boot.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
+	<properties>
+		<java.version>17</java.version>
+		<spring.boot.version>3.0.0</spring.boot.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+	</properties>
 
 	<dependencies>
 		<!-- Spring Boot Starters -->
@@ -25,10 +25,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+		<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
@@ -60,19 +60,26 @@
 		</dependency>
 
 		<!-- Spring Security Config -->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-config</artifactId>-->
-<!--			<version>5.7.1</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.security</groupId>-->
+		<!--			<artifactId>spring-security-config</artifactId>-->
+		<!--			<version>5.7.1</version>-->
+		<!--		</dependency>-->
 
 		<!-- Lombok (Optional for reducing boilerplate code) -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
+			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.24</version> <!-- Replace with the latest version -->
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -81,12 +88,12 @@
 		</dependency>
 
 		<!-- Servlet API (Provided by Servlet Container) -->
-<!--		<dependency>-->
-<!--			<groupId>javax.servlet</groupId>-->
-<!--			<artifactId>javax.servlet-api</artifactId>-->
-<!--			<version>4.0.1</version> &lt;!&ndash; Adjust version as per your environment &ndash;&gt;-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>javax.servlet</groupId>-->
+		<!--			<artifactId>javax.servlet-api</artifactId>-->
+		<!--			<version>4.0.1</version> &lt;!&ndash; Adjust version as per your environment &ndash;&gt;-->
+		<!--			<scope>provided</scope>-->
+		<!--		</dependency>-->
 	</dependencies>
 
 	<dependencyManagement>
